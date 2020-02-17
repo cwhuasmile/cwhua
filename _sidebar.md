@@ -9,8 +9,10 @@
 
 - 电脑&网络
 
-  - [网络](pc_net/internet.md)
+  - [网络](pc&net/internet.md)
+  - [电脑](pc&net/Windows.md)
 
 - Git&GitHub
   - [GitHub相关](Git&GitHub/GitHub)
+  - [GIt](Git&GitHub/Git)
 

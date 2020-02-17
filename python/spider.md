@@ -69,10 +69,10 @@
 - 如果要重写pipelines，需要把默认的pipelines注释掉，添加自己的，格式为：
 
 ```python
-'ROSI.pipelines.ImagesnamePipeline':1
+'BAT.pipelines.ImagesnamePipeline':1
 ```
 
-其中ROSI是项目名称，pipelines是ROSI里面的py文件，ImagesnamePipelins是py文件里的class类。数字1表示优先级，1~1000，数值越小优先级越高。
+其中BAT是项目名称，pipelines是BAT文件夹里面的py文件，ImagesnamePipelins是py文件里的class类。数字1表示优先级，1~1000，数值越小优先级越高。
 
 ### 问题与分析解决方案
 
