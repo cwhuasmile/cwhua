@@ -35,13 +35,13 @@ def makepath(num_name):
     false_path = []
     for n,m in num_name.items():
         try:
-            os.mkdir(rf'C:\Users\Administraotr\Desktop\test\mzitu\{n}')
+            os.mkdir(rf'C:\Users\Administraotr\Desktop\test\789\{n}')
         #目录创建失败后写入日志
         except:
             false_path.append(n)
             print(rf'{n}目录已被创建')
         else:
-            with open(rf'C:\Users\Administrator\Desktop\test\mzitu\{n}\{m}.txt','w') as f:
+            with open(rf'C:\Users\Administrator\Desktop\test\789\{n}\{m}.txt','w') as f:
                 f.write(f'{n}{m}')
     return None
 

@@ -4,7 +4,8 @@
 
 - Python
   - [爬虫](python/spider.md)
-
+- [Python](python/Python.md)
+  
 - 电脑&网络
   - [网络](pc&net/internet.md)
   - [电脑](pc&net/Windows.md)

@@ -53,6 +53,24 @@
 
 ## 5，selenium
 
+- 打开新的标签页
+
+  ```
+  driver.execute_script("window.open('https://www.baidu.com')")
+  ```
+
+- 切换游标位置（driver.window_handles是个列表，数字表示第几个打开的标签页，从0开始）
+
+  ```
+  driver.switch_to_window(driver.window_handles[2])
+  ```
+
+- 关闭标签页
+
+  ```
+  driver.close()
+  ```
+
 ## 6，scrapy框架
 
 ### settings.py设置注意事项
