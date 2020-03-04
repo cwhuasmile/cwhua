@@ -73,6 +73,44 @@
 
 ## 6，scrapy框架
 
+### Scrapy快速入门
+
+#### 1.目录结构介绍
+
+	1. items.py：用来存放爬虫爬取下来数据的模型。
+ 	2. middlewares.py：用来存放各种中间件的文件。
+ 	3. pipelines.py：用来将`items`的模型存储到本地磁盘中。
+ 	4. settings.py：本爬虫的一些配置信息（比如请求头、多久发送一次请求、ip代理池等）。
+ 	5. scrapy.cfg：项目的配置文件。
+ 	6. spiders包：以后所有的爬虫，都是存放到这个里面。
+
+#### 2.创建和运行项目
+
+- 创建项目
+
+  ```ptyhon
+  scrapy startproject [项目名称]
+  ```
+
+- 创建爬虫
+
+  ```python
+  scrapy genspider [爬虫名字] [域名]	#项目名称不能和爬虫名称一样
+  ```
+
+- 运行项目
+
+  ```python
+  scrapy crawl [爬虫名字]		#需要进入到爬虫所在路径
+  ```
+
+  如果不想每次都执行命令运行爬虫，可以新建一个*.py文件，填入以下内容，执行该文件即可。
+
+  ```python
+  from scrapy import cmdline
+  cmdline.execute("scrapy crawl [爬虫名字]".split())
+  ```
+
 ### settings.py设置注意事项
 
 #### 1. DEFAULT_REQUEST_HEADERS默认请求头

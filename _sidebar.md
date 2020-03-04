@@ -5,6 +5,7 @@
 - Python
   - [爬虫](python/spider.md)
   - [Python](python/Python.md)
+  - [第三方模块](python/module.md)
   
 - 电脑&网络
   - [网络](pc&net/internet.md)
