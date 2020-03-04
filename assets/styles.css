@@ -274,6 +274,11 @@ body .sidebar-toggle span:nth-child(3) {
   top: 1rem;
 }
 
+.sidebar .sidebar-nav {
+  /*侧边栏字体行高*/
+  line-height: 1.5em
+}
+
 .sidebar-toggle:hover {
   opacity: 0.8;
 }
@@ -312,6 +317,11 @@ body .sidebar-toggle span:nth-child(3) {
 
 .markdown-section a.anchor {
   border: none;
+}
+
+.markdown-section pre {
+  /*代码行高*/
+  line-height: 1.1rem;
 }
 
 @media screen and (max-width: 768px) {

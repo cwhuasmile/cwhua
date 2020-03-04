@@ -9,3 +9,23 @@
 - selenium库的基本使用
 
   https://www.jianshu.com/p/3aa45532e179
+
+- wireshark抓包分析——TCP/IP协议
+
+  https://blog.csdn.net/wangyiyungw/article/details/82178070
+
+- 简单网站搭建模板
+
+  https://www.bilibili.com/video/av57702342/?p=67
+
+- 建议收藏 | 最全的 JS 逆向入门教程合集
+
+  https://mp.weixin.qq.com/s/2865lRGaZTIxTuCvgDL1IA
+
+- pyinstaller打包以及安全性
+
+  https://mp.weixin.qq.com/s/F-mwWPRbfdUCH5-PxNMkCg
+
+- 下载B站指定UP主的所有视频
+
+  https://mp.weixin.qq.com/s/GaVW4_nbAaO0QvphI7QgnA

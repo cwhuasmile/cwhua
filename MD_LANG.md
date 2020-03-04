@@ -1,4 +1,4 @@
-# MarkDown语法示例
+### MarkDown语法示例
 
 - #### 表格样式：
 
@@ -257,12 +257,20 @@
   <center>
 
   <table> <tr> <th rowspan="2">值班人员</th> <th>星期一</th> <th>星期二</th> <th>星期三</th> </tr> <tr> <td>李强</td> <td>张明</td> <td>王平</td> </tr> </table>
-
-  </center>
-
+</center>
   
+- #### mermaid画图
 
-  
+```mermaid
+
+graph LR;
+  A-->B
+  B-->C
+  C-->D
+  D-->A
+
+```
+
 
 作者：择势勤
 

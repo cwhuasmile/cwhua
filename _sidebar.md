@@ -17,7 +17,8 @@
 - 代码
   - [Scrapy](Code/Scrapy.md)
   - [requests](Code/requests.md)
-
+  - [Python](Code/Python.md)
+  - [Selenium](Code/Selenium.md)
 - WEB
   - [CSS](web/css.md)
   - [HTML](web/html.md)
