@@ -52,3 +52,20 @@ bcdboot c:\windows /l zh-cn
 ## HTTP服务防火墙设置
 
 防火墙添加入站规则，选TCP链接，然后指定端口，例如80，8081等。
+
+## Win10 修改默认图片打开方式为照片查看器
+
+复制以下内容到记事本：
+
+```bash
+@echo off&cd\&color 0a&cls
+echo 恢复Win10照片查看器
+reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".jpg" /t REG_SZ /d PhotoViewer.FileAssoc.Tiff /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".jpeg" /t REG_SZ /d PhotoViewer.FileAssoc.Tiff /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".bmp" /t REG_SZ /d PhotoViewer.FileAssoc.Tiff /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".png" /t REG_SZ /d PhotoViewer.FileAssoc.Tiff /f
+echo 请双击或右击图片，选择“照片查看器”即可
+pause
+```
+
+然后再保存为.bat的程序，以管理员方式运行之，第一次打开图片时选择windows照片查看器即可。以后重装系统了，或者别人需要设置，直接执行这个批处理程序就好了

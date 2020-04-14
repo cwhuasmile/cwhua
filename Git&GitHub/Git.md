@@ -13,23 +13,17 @@
 - `git push` 将代码进行上传同步
 
   首次使用会弹出对话框要求输入账号密码
-  
-- 配置用户名和邮箱：
 
-  - 为单一的仓库配置用户名和邮箱，命令分别为：
-
-    ```git
-    $ git config user.name "username"
-    $ git config user.email "email"
-    ```
-  
-  - 配置全局的用户名和邮箱，命令分别为:
-  
-    ```git
-    $ git config --global user.name "username"
-    $ git config --global user.email "email"
-    ```
-
+- 为单一的仓库配置用户名和邮箱，命令分别为：
+  ```cmd
+  git config user.name "username"
+  git config user.email "email"
+  ```
+- 配置全局的用户名和邮箱，命令分别为:
+  ```cmd
+  git config --global user.name "username"
+  git config --global user.email "email"
+  ```
 # Git相关问题处理
 
 1. warning: LF will be replaced by CRLF in readme.txt
@@ -39,8 +33,8 @@
    Windows  采用回车+换行 CRLF表示下一行
    解决：可以通过设置 core.autocrlf 的值解决
    
-   ```git
-   $ git config --global core.autocrlf false
+   ```cmd
+   git config --global core.autocrlf false
    ```
    
    
