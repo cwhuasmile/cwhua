@@ -25,3 +25,38 @@ pyinstaller -K 当包含tcl和tk也就是使用tkinter时加上-K参数
 ————————————————
 版权声明：本文为CSDN博主「心寒语录」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/jiyukun1/java/article/details/82218333
+
+# 强制结束线程的方法
+
+python不推荐强制结束线程，原因自行百度。但也不是不可以强制结束，使用ctypes模块可以做到。
+
+```python
+import ctypes
+import threading
+import time
+
+def terminate_thread(thread):
+    if not thread.isAlive():
+        return
+    exc = ctypes.py_object(SystemExit)
+    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(
+        ctypes.c_long(thread.ident), exc)
+    if res == 0:
+        raise ValueError("nonexistent thread id")
+    elif res > 1:
+        ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
+        raise SystemError("PyThreadState_SetAsyncExc failed")
+
+def p():
+    for i in range(10):
+        print(i)
+        time.sleep(1)
+
+t = threading.Thread(target=p, args=[])
+t.start()
+time.sleep(5)
+terminate_thread(t)
+print("kill已经执行")
+time.sleep(7)
+```
+

@@ -35,3 +35,30 @@
 - python异步编程入门
 
   http://www.ruanyifeng.com/blog/2019/11/python-asyncio.html
+
+-   Linux下面格式化U盘
+
+    https://zhuanlan.zhihu.com/p/45147708
+
+-   Linux系统下，将普通硬盘的ntfs分区转换为ext4分区，并开机自动挂载
+
+    https://my.oschina.net/u/2447371/blog/807543
+
+-   hiboy老毛子Padavan固件更新说明
+
+    https://www.right.com.cn/FORUM/thread-1515729-1-2.html
+
+-   Linux的inode的理解， inode空间大小调整
+
+    https://blog.51cto.com/ityunwei2017/1539481
+
+-   Padavan固件一键安装ONMP搭建Web环境,网站,网盘,相册等
+
+    https://www.right.com.cn/FORUM/thread-244810-1-1.html
+
+-   【LNMP】: /opt 已用节点空间100%/100%
+
+    https://www.cnblogs.com/dbfedbf/p/7644989.html
+
+-   
+

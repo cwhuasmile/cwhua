@@ -11,6 +11,7 @@
   - [网络](pc&net/internet.md)
   - [电脑](pc&net/Windows.md)
   - [软件](pc&net/software.md)
+  - [Linux](pc&net/Linux.md)
   
 - Git&GitHub
   - [GitHub相关](Git&GitHub/GitHub)

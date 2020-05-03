@@ -63,7 +63,7 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
 
    `//ul/li[last()-1]`表示提取倒数第二个`li`标签
 
-   `//ul/li[position()<3]`表示提取最前面的两个`li`标签
+   `//ul/li[position()《3]`表示提取最前面的两个`li`标签
 
 4. 路径表达式
 
@@ -84,7 +84,7 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
   driver.execute_script("window.open('https://www.baidu.com')")
   ```
 
-- 切换游标位置（driver.window_handles是个列表，数字表示第几个打开的标签页，从0开始）
+- 切换游标位置（driver.window_handles(返回所有窗口句柄)是个列表，数字表示第几个打开的标签页，从0开始）
 
   ```
   driver.switch_to_window(driver.window_handles[2])
@@ -96,18 +96,65 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
   driver.close()
   ```
 
+```python
+br = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe') #启动chrome浏览器，在path中可以不代参数
+element = driver.find_element_by_id("coolestWidgetEvah")   #查找这个内容的id标签<div id="coolestWidgetEvah">...</div>
+cheeses = driver.find_elements_by_class_name("cheese")    #按class名查找<div class="cheese"><span>Cheddar</span></div><div class="cheese"><span>Gouda</span></div>
+frame = driver.find_element_by_tag_name("iframe")#DOM标签元素的名称。<iframe src="..."></iframe>
+cheese = driver.find_element_by_name("cheese")#找到具有匹配name属性的input元素。<input name="cheese" type="text"/>
+cheese = driver.find_element_by_link_text("cheese")#找到具有匹配可见文本的link元素。<a href="http://www.google.com/search?q=cheese">cheese</a>>
+cheese = driver.find_element_by_partial_link_text("cheese")#找到部分匹配可见文本的链接元素。<a href="http://www.google.com/search?q=cheese">search for cheese</a>>
+cheese = driver.find_element_by_css_selector("#food span.dairy.aged")#css选择器查找<div id="food"><span class="dairy">milk</span><span class="dairy aged">cheese</span></div>
+inputs = driver.find_elements_by_xpath("//input")#通过xpath查找
+
+#获取文本值
+element = driver.find_element_by_id("element_id")
+element.text       #请注意，这只会返回页面上显示的可见文本
+
+driver.find_element_by_id("submit").click()    #点击"submit"按钮
+#前进和后退
+driver.forward()
+driver.back()
+
+# find_element_by_name 通过name查找单个元素
+# find_element_by_xpath 通过xpath查找单个元素
+# find_element_by_link_text 通过链接查找单个元素
+# find_element_by_partial_link_text 通过部分链接查找单个元素
+# find_element_by_tag_name 通过标签名称查找单个元素
+# find_element_by_class_name 通过类名查找单个元素
+# find_element_by_css_selector 通过css选择武器查找单个元素
+
+#获取元素信息
+btn_more = browser.find_element_by_id('btn_more')
+print(btn_more.get_attribute('class')) # 获取属性
+print(btn_more.get_attribute('href')) # 获取属性
+print(btn_more.text) # 获取文本值
+
+元素交互操作
+btn_more = browser.find_element_by_id('btn_more')
+btn_more.click() # 模拟点击,可以模拟点击加载更多
+input_search = browser.find_element(By.ID,'q')
+input_search.clear() # 清空输入
+
+# 执行JavaScript脚本
+browser.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+browser.execute_script('alert("To Bottom")')
+```
+
+
+
 ## 6，scrapy框架
 
 ### Scrapy快速入门
 
 #### 1.目录结构介绍
 
-	1. items.py：用来存放爬虫爬取下来数据的模型。
- 	2. middlewares.py：用来存放各种中间件的文件。
- 	3. pipelines.py：用来将`items`的模型存储到本地磁盘中。
- 	4. settings.py：本爬虫的一些配置信息（比如请求头、多久发送一次请求、ip代理池等）。
- 	5. scrapy.cfg：项目的配置文件。
- 	6. spiders包：以后所有的爬虫，都是存放到这个里面。
+1. items.py：用来存放爬虫爬取下来数据的模型。
+2. middlewares.py：用来存放各种中间件的文件。
+3. pipelines.py：用来将`items`的模型存储到本地磁盘中。
+4. settings.py：本爬虫的一些配置信息（比如请求头、多久发送一次请求、ip代理池等）。
+5. scrapy.cfg：项目的配置文件。
+6. spiders包：以后所有的爬虫，都是存放到这个里面。
 
 #### 2.创建和运行项目
 
@@ -157,7 +204,7 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
 
 ### 问题与分析解决方案
 
-#### 1. `ValueError: Missing scheme in request url: h `报错
+#### 1. ValueError: Missing scheme in request url: h 报错
 
 - 如果单纯获取文本，那么只需start_urls是一个list；而如果获取图片，则必须**start_urls与item**中存储图片路径字段这两者必须都是 list。（保存图片用image_urls）
 
@@ -185,7 +232,7 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
 
 #### 3.Pipelines中间件不运行（不执行）解决方案
 
-​	在确定setting.py设置和pipelines.py中的`类名`没有问题时请尝试以下方法：
+在确定setting.py设置和pipelines.py中的`类名`没有问题时请尝试以下方法：
 
 - 检查网页请求头headers中的referer，此参数不正确会导致请求返回403或者404。
 - settings.py中的IMAGES_STORE参数必须设置，然后再去pipelines.py中调用。否则会导致程序不进入pipelines中
