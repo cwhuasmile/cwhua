@@ -60,5 +60,14 @@
 
     https://www.cnblogs.com/dbfedbf/p/7644989.html
 
--   
+-   requests与aiohttp 请求效果差异（返回结果不一样）：aiohttp的headers中有些没有的键值影响，删掉即可
 
+    https://blog.csdn.net/fei321321/article/details/99953376?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-1
+
+-   requests中请求参数json发送中文内容给服务器显示乱码（unicode）问题
+
+    https://www.cnblogs.com/Simple-Small/p/10006580.html
+
+-   python3的位移操作（python改写js左移、右移（无符号右移）操作）
+
+    https://www.jianshu.com/p/24d11ab44ae6

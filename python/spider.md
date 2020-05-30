@@ -25,6 +25,12 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
     f.write(response.text)
 ```
 
+### post发送json数据支持中文不乱码的设置方法
+
+在requests源码的models.py文件中，找到prepare_body函数。在comlexjson.dumps(json)里加个参数ensure_ascii=False.**
+
+转自：https://www.cnblogs.com/Simple-Small/p/10006580.html
+
 
 
 ## 3，BeautifulSoup
@@ -75,6 +81,16 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
    | .        | 选取当前节点。                                             |
    | ..       | 选取当前节点的父节点。                                     |
    | @        | 选取属性。                                                 |
+   
+5.  class中含有多个值的定位方法
+
+    ```html
+    <div class="a b" id="tab">......</div>
+    ```
+
+    上面的内容用`//div[@class="a"]`是无法定位到的。必须用`//div[contains(@class,"a")]`才能定位到
+    
+6. xpath不能定位表格`tbody`标签，如`//table/tbody/tr[3]/td/text()`无法定位表格，可以把其中的`tbody`去掉，改为定位`tbody`下面的子标签`//table//tr[3]/td/text()`
 
 ## 5，selenium
 
@@ -236,3 +252,14 @@ browser.execute_script('alert("To Bottom")')
 
 - 检查网页请求头headers中的referer，此参数不正确会导致请求返回403或者404。
 - settings.py中的IMAGES_STORE参数必须设置，然后再去pipelines.py中调用。否则会导致程序不进入pipelines中
+
+
+
+## 7.aiohttp
+
+### 1. 发送json数据支持中文不乱码的设置方法
+
+在aiohttp模块的根目录，找到payload.py文件，修改`class JsonPayload(BytesPayload)`这个类下面的super().__init__(dumps(value).encode(encoding),content_type=content_type, encoding=encoding, *args, **kwargs)把其中的`dumps`函数加上参数`ensure_ascii=False`即可
+
+### 2. 异步中使用asyncio.wait()函数创建的任务，其中的单一任务报错不会提示。需要等到全部任务执行完毕才会统一报错
+
