@@ -255,11 +255,142 @@ browser.execute_script('alert("To Bottom")')
 
 
 
-## 7.aiohttp
+## 7，aiohttp
 
 ### 1. 发送json数据支持中文不乱码的设置方法
 
 在aiohttp模块的根目录，找到payload.py文件，修改`class JsonPayload(BytesPayload)`这个类下面的super().__init__(dumps(value).encode(encoding),content_type=content_type, encoding=encoding, *args, **kwargs)把其中的`dumps`函数加上参数`ensure_ascii=False`即可
 
 ### 2. 异步中使用asyncio.wait()函数创建的任务，其中的单一任务报错不会提示。需要等到全部任务执行完毕才会统一报错
+
+## 8，用websocket控制浏览器
+
+#### 1.原理
+
+在浏览器端启动websocket，在爬虫程序里给浏览器端的websocket发送指令，让浏览器端的websocket执行一些操作(生成加密数据等)，把生成的数据再返回给爬虫程序，此举可省去扣js加密代码的大量工作。
+
+由于浏览器里面是websocket客户端，爬虫程序里也是websocket客户端，所以需要另建一个websocket服务端负责转发这两个客户端的消息。
+
+#### 2.代码及说明
+
+##### 1.服务端
+
+```python
+import asyncio
+import json
+import websockets
+
+STATE = {"value": 0}
+USERS = set()
+
+#此函数不严谨，根据自己项目需求修改。
+async def notify_state(websocket):#收到一个客户端消息，转发给其他的客户端，
+    if len(USERS) > 1:  # 如果客户端数量大于2，把任意客户端收到的信息转发给除自己意外的所有客户端。
+        await asyncio.wait([user.send(STATE["value"]) for user in USERS if user != websocket])
+    else:	#客户端数量小于2发送给自己。
+        await asyncio.wait([user.send(STATE["value"]) for user in USERS])
+
+async def counter(websocket, path):
+    try:
+        USERS.add(websocket)
+        print("已链接客户端数量：", len(USERS))
+        async for message in websocket:
+            print("收到的信息：", message)
+            STATE["value"] = message
+            await notify_state(websocket)
+    except:
+        pass
+    finally:
+        USERS.remove(websocket)
+        print("剩余链接客户端数量", len(USERS))
+####################普通连接方式##################
+start_server = websockets.serve(counter, "127.0.0.1", 6789)	#主函数，ip，端口
+################################################
+
+#####################启用SSL连接方式##############
+#ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+#ssl_context.load_cert_chain(r"D:\xxxxx\abc.com.pem")	#pem格式的ca证书路径
+#start_server = websockets.serve(counter, "127.0.0.1", 6789, ssl=ssl_context)
+#################################################
+
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
+
+```
+
+##### 2.浏览器端
+
+```js
+//此函数根据实际情况自己创建
+create_singeprint = function (info) {
+    //这里执行一顿操作
+    return "执行了" + info
+}
+
+start_websocket = function () {
+    var ws = new WebSocket('ws://abc.com:6789');//如果开启了SSL请用'wss://abc.com:6789'
+	var ws.onopen=function () {
+			console.log('open')
+		}
+	var ws.onclose=function () {
+			console.log('close')
+		}
+	var ws.onmessage=function (e) {
+            mess = e.data
+        	//根据收到的指令内容执行相应的操作
+            if (mess == "join_in") {
+                info_mess = create_singeprint("join_in")
+                ws.send(info_mess)
+            }
+            else if (mess == "login") {
+                info_mess = create_singeprint("login")
+                ws.send(info_mess)
+            }
+            else if (mess == "exit") {
+                info_mess = create_singeprint("exit")
+                ws.send(info_mess)
+            }
+        }
+    }
+//执行此函数时请关闭断点状态，否则websocket是断点状态，并不会启动
+create_singeprint()
+```
+
+##### 3.爬虫端
+
+```python
+import asyncio
+import websockets
+import time
+
+async def sendinfo(websocket,semaphore):
+    async with semaphore:
+        for i in range(10):
+            info = await q.get()
+            await websocket.send(str(info))
+            print(f"> {info}")
+
+async def recvinfo(websocket,semaphore):
+    async with semaphore:
+        for i in range(200):
+            inf = await websocket.recv()
+            print(inf)
+
+async def hello():
+    for i in range(412630,412830):
+        await q.put(i)
+    uri = "ws://abc.com:6789"
+    websocket = await websockets.connect(uri)
+    name = input("按任意键开始")
+    s = time.time()
+    semaphore = asyncio.Semaphore(5) # 限制并发量为5
+    to_get = [sendinfo(websocket,semaphore) for i in range(20)] #总共20任务
+    to_get.append(recvinfo(websocket,semaphore))
+    print("========================")
+    await asyncio.wait(to_get)
+    print("总共花费秒数：",time.time()-s)
+
+q = asyncio.Queue(999)
+asyncio.get_event_loop().run_until_complete(hello())
+```
 
