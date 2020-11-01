@@ -27,7 +27,8 @@ with open('xxx.html', 'w', encoding='utf-8') as f:
 
 ### post发送json数据支持中文不乱码的设置方法
 
-在requests源码的models.py文件中，找到prepare_body函数。在comlexjson.dumps(json)里加个参数ensure_ascii=False.**
+在requests源码的models.py文件中，找到prepare_body函数。在comlexjson.dumps(json)里加个参数ensure_ascii=False.
+另外还可添加separators=(',', ':')参数，取消json格式化后多余的空格；添加indent参数指定缩进的空格数（参数为0表示只换行不缩进）
 
 转自：https://www.cnblogs.com/Simple-Small/p/10006580.html
 
